@@ -19,12 +19,23 @@ namespace TicketHubAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
+           
             return Ok("Hello from MyContactsController - Get()");
         }
 
         [HttpPost]
         public IActionResult Post(Ticket ticket)
         {
+
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values
+                    .SelectMany(v => v.Errors)
+                    .Select(e => e.ErrorMessage)
+                    .ToList();
+                return BadRequest(new { Errors = errors });
+            }
+
             return Ok("Hello " + ticket.name + " from MyContactsController - Post()");
         }
     }
