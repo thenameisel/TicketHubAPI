@@ -40,7 +40,7 @@ namespace TicketHubAPI
         [RegularExpression(@"^(?i)[a-z]\d[a-z][ -]?\d[a-z]\d(?-i)$", ErrorMessage = "Valid postal code required")]
         public string postalCode { get; set; }
 
-        [Compare("Canada", ErrorMessage = "Sorry, we only sell to Canadians!")]
+        [RegularExpression(@"^(?i)canada(?-i)$", ErrorMessage = "Sorry, we only sell to Canada!")]
         public string country { get; set; }
 
     }

@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure.Storage.Queues;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.InteropServices.Marshalling;
+using System.Text.Json;
 
 namespace TicketHubAPI.Controllers
 {
@@ -37,8 +40,22 @@ namespace TicketHubAPI.Controllers
             }
             else { 
 
-                string queueName = "tickets";
+                string queueName = "tickethub";
 
+                string? connectionString = _config["AzureStorageConnectionString"];
+
+                if (string.IsNullOrEmpty(connectionString))
+                {
+                    return BadRequest("An error was encountered");
+                }
+
+                QueueClient queueClient = new QueueClient(connectionString, queueName);
+
+                // serialize an object to json
+                string message = JsonSerializer.Serialize(ticket);
+
+                // send string message to queue
+                await queueClient.SendMessageAsync(message);
 
                 return Ok("Hello " + ticket.name + " from MyContactsController - Post()");
             }
