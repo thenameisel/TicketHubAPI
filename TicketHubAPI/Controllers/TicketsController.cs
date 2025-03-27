@@ -19,12 +19,12 @@ namespace TicketHubAPI.Controllers
             _config = config;
         }
 
-        //[HttpGet]
-        //public IActionResult Get()
-        //{
-           
-        //    return Ok("Hello from MyContactsController - Get()");
-        //}
+        [HttpGet]
+        public IActionResult Get()
+        {
+
+            return Ok("Hello from MyContactsController - Get()");
+        }
 
         [HttpPost]
         public async Task<IActionResult> Post(Ticket ticket)
