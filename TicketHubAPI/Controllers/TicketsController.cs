@@ -24,7 +24,7 @@ namespace TicketHubAPI.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(Ticket ticket)
+        public async Task<IActionResult> Post(Ticket ticket)
         {
 
             if (!ModelState.IsValid)
@@ -33,10 +33,15 @@ namespace TicketHubAPI.Controllers
                     .SelectMany(v => v.Errors)
                     .Select(e => e.ErrorMessage)
                     .ToList();
-                return BadRequest(new { Errors = errors });
+                return BadRequest(ModelState);
             }
+            else { 
 
-            return Ok("Hello " + ticket.name + " from MyContactsController - Post()");
+                string queueName = "tickets";
+
+
+                return Ok("Hello " + ticket.name + " from MyContactsController - Post()");
+            }
         }
     }
 }

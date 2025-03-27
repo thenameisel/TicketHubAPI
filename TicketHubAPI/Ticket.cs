@@ -34,8 +34,8 @@ namespace TicketHubAPI
         [StringLength(50, MinimumLength = 3, ErrorMessage = "City must be less than 50 characters")]
         public string city { get; set; }
 
-        [StringLength(25, MinimumLength = 3, ErrorMessage = "Province must be less than 25 characters")]
-        public string province { get; set; }
+        [StringLength(25, MinimumLength = 2, ErrorMessage = "Province must be less than 25 characters")]
+        public string province { get; set; } //I might change this to a dropdown if a UI was implemented
 
         [RegularExpression(@"^(?i)[a-z]\d[a-z][ -]?\d[a-z]\d(?-i)$", ErrorMessage = "Valid postal code required")]
         public string postalCode { get; set; }
