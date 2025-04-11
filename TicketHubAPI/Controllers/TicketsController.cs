@@ -57,7 +57,12 @@ namespace TicketHubAPI.Controllers
                 // send string message to queue
                 await queueClient.SendMessageAsync(message);
 
-                return Ok("Hello " + ticket.name + " from MyContactsController - Post()");
+                return Ok(new
+                {
+                    message = "Ticket created successfully",
+                    ticketId = Guid.NewGuid(),
+                    status = "confirmed"
+                });
             }
         }
     }
